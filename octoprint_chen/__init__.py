@@ -191,6 +191,7 @@ class ChenPlugin(octoprint.plugin.SettingsPlugin,
 		# 获取gcode
 		file_name = gcode_dict.get('gcode_name')
 		file_path = os.path.join(self.g_code_folder, file_name)
+
 		# print(self.file_path)
 		try:
 			r = requests.get(url=gcode_dict.get('gcode_url'))
@@ -203,7 +204,7 @@ class ChenPlugin(octoprint.plugin.SettingsPlugin,
 		try:
 			# 是否需要增加条件，如判断是否存在未取下的模型或材料（需要通过人工实现），当前默认ready则可以开始打印
 			if True:
-				self._printer.select_file(path=self.file_path, sd=False, printAfterSelect=False)
+				self._printer.select_file(path=file_path, sd=False, printAfterSelect=False)
 				self._printer.start_print()
 				_logger.info("文件开始打印")
 
