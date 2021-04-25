@@ -96,6 +96,11 @@ class ChenPlugin(octoprint.plugin.SettingsPlugin,
 		# 自动在服务器上注册打印机，注册失败可以手动注册
 		self.register_printer()
 
+		# 连接打印机
+		if self._printer.get_current_connection()[0] == 'Closed':
+			self._printer.connect()
+			_logger.info(self._printer.get_current_connection())
+
 		# 指定gcode文件存放位置
 		if not self._file_manager.folder_exists("local", path="gcode"):
 			self._file_manager.add_folder("local", path="gcode", ignore_existing=False)
@@ -117,14 +122,9 @@ class ChenPlugin(octoprint.plugin.SettingsPlugin,
 
 		while True:
 			time.sleep(1)
-
-			if self._printer.get_current_connection()[0] == 'Closed':
-				self._printer.connect()
-				_logger.info(self._printer.get_current_connection())
 			# 当有打印机连接时开始向服务器发送数据（每隔1秒，或者可以更低）
-			else:
+			if True:
 				try:
-
 					# print(data)
 					# 当没有websokcket连接或者连接失败时，持续尝试连接
 					if not self.wss or not self.wss.connected():
