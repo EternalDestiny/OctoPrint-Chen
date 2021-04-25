@@ -118,10 +118,11 @@ class ChenPlugin(octoprint.plugin.SettingsPlugin,
 		while True:
 			time.sleep(1)
 
+			if self._printer.get_current_connection()[0] == 'Closed':
+				self._printer.connect()
+				_logger.info(self._printer.get_current_connection())
 			# 当有打印机连接时开始向服务器发送数据（每隔1秒，或者可以更低）
-			# if not self._printer.get_current_connection()[0] == 'Closed':
-			# if self._printer.get_current_connection()[0] == :
-			if True:  # 开发测试
+			else:
 				try:
 
 					# print(data)
