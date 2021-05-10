@@ -170,13 +170,16 @@ class ChenPlugin(octoprint.plugin.SettingsPlugin,
 					# data中包含gcode文件信息
 					self.start_print(data.get('data'))
 
-				# 以下暂时未在服务器实现
+				#其他控制命令
 				if cmd == "pause":
 					self._printer.pause_print()
 				if cmd == 'cancel':
 					self._printer.cancel_print()
 				if cmd == 'resume':
 					self._printer.resume_print()
+				#xyz轴回零
+				if cmd=='home':
+					self._printer.home(["x","y","z"])
 
 		except:
 			_logger.info("ws出错")
